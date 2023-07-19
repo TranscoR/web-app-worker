@@ -152,6 +152,7 @@ const Index = ({
   cycleSelected,
 }: WeekCard) => {
   const payments = days && days?.filter((day) => day.paid);
+  const number_week = i + 1;
 
   return (
     <Box sx={{ border: "1ps solid #d1d1d185" }}>
@@ -172,7 +173,7 @@ const Index = ({
         >
           <HeaderInfo>
             <div>
-              <p>#{i + 1}</p>
+              <p>#{number_week}</p>
             </div>
             <div>
               <p>
@@ -192,7 +193,7 @@ const Index = ({
         <AccordionDetails>
           <Box sx={{ borderTop: "1px solid #7c7c7c26", paddingTop: "30px" }}>
             <Box>
-              <h3>Semana 1</h3>
+              <h3>Semana {number_week}</h3>
               <p>
                 {start_week} - {end_week}
               </p>
@@ -201,7 +202,7 @@ const Index = ({
               </Legend>
             </Box>
             <CotentDays mt={4} mb={1}>
-              <Stack direction={{ xs: "row", sm: "row" }} spacing={2}>
+              <Stack direction="row" spacing={2}>
                 {days.map((day: any) => (
                   <DayCard
                     {...day}

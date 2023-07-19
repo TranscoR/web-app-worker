@@ -172,11 +172,7 @@ const Index = ({
             <ModalTitle>¿El Tutor ya realizo el pago?</ModalTitle>
           </ContentTitle>
           <Box mt={3}>
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={2}
-              justifyContent="center"
-            >
+            <Stack direction="row" spacing={2} justifyContent="center">
               <Button
                 sx={{ fontFamily: "Prompt", color: "#1d1d1d" }}
                 onClick={handleClose}

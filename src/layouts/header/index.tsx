@@ -74,7 +74,6 @@ const Index = () => {
             sx={{
               fontFamily: "Prompt",
               boxShadow: "none",
-              marginRight: "10px",
               padding: "6px 30px",
             }}
           >

@@ -61,7 +61,6 @@ const ButtonFilters = styled.button`
     margin-right: 5px;
   }
 `;
-
 interface cycleSelected {
   first_year: string;
   end_year: string;
@@ -227,29 +226,39 @@ const Index = () => {
             )}
           </Stack>
           {showFilters && (
-            <FiltersList>
-              <Fragment>
-                {student?.school_cycle?.map((cycle: any) => (
-                  <Button
-                    variant="contained"
-                    sx={{
-                      fontFamily: "Prompt",
-                      boxShadow: "none",
-                      padding: "8px 10px",
-                      backgroundColor: "#e9edf3",
-                    }}
-                    onClick={() =>
-                      setCycleSelected({
-                        first_year: cycle.first_year,
-                        end_year: cycle.end_year,
-                      })
-                    }
-                  >
-                    {cycle.first_year} - {cycle.end_year}
-                  </Button>
-                ))}
-              </Fragment>
-            </FiltersList>
+            <Box mt={1}>
+              <small>Elige un ciclo escolar:</small>
+              <FiltersList>
+                <Fragment>
+                  {student?.school_cycle?.map((cycle: any) => (
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontFamily: "Prompt",
+                        boxShadow: "none",
+                        padding: "8px 10px",
+                        color:
+                          cycleSelected.first_year === cycle.first_year
+                            ? "#f1ca3b"
+                            : "#1d1d1d",
+                        backgroundColor:
+                          cycleSelected.first_year === cycle.first_year
+                            ? "#f1ca3b20"
+                            : "#e9edf3",
+                      }}
+                      onClick={() =>
+                        setCycleSelected({
+                          first_year: cycle.first_year,
+                          end_year: cycle.end_year,
+                        })
+                      }
+                    >
+                      {cycle.first_year} - {cycle.end_year}
+                    </Button>
+                  ))}
+                </Fragment>
+              </FiltersList>
+            </Box>
           )}
           {cyclesFiltered && cyclesFiltered.length ? (
             <Box>

@@ -8,7 +8,7 @@ interface selectProps {
   id?: number;
   keyName?: string;
   filters?: any;
-  setValue?: (a: string) => void;
+  setValue?: any;
 }
 
 const Index = ({ filters, setValue }: selectProps) => {
@@ -33,10 +33,8 @@ const Index = ({ filters, setValue }: selectProps) => {
       <FormControl fullWidth size="small">
         <Select
           id="demo-simple-select"
-          // value={}
           onChange={handleChange}
           MenuProps={MenuProps}
-          // defaultValue={}
         >
           {filters.map((option: string, i: number) => (
             <MenuItem key={i} value={option}>

@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Image from "next/image";
+import IconLock from "@/assets/icons/lock.svg";
+import { type Student } from "@/types";
 
 const Card = styled(Box)`
   border: 1px solid #d1d1d185 !important;
@@ -21,7 +24,7 @@ const HeaderInfo = styled(Box)`
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   align-items: center;
-  justify-items: flex-;
+  justify-items: flex;
   width: 100%;
   padding: 10px 0;
   & div p {
@@ -33,13 +36,31 @@ const HeaderInfo = styled(Box)`
   }
   @media screen and (max-width: 820px) {
     grid-template-columns: 26% 44% 24%;
+    position: relative;
+    overflow: scroll;
+    padding: 10px 20px;
+    display: -webkit-box;
+    -webkit-box-align: center;
     & div p {
       font-size: 13px;
     }
   }
 `;
 
-const Index = () => {
+const Education = styled.p`
+  text-transform: capitalize;
+`;
+
+const Index = ({
+  index,
+  uid,
+  active_account,
+  student_name,
+  education,
+  school_name,
+  tutor_name,
+  phone_number,
+}: Student) => {
   const router = useRouter();
 
   return (
@@ -47,25 +68,40 @@ const Index = () => {
       <Card>
         <HeaderInfo>
           <div>
-            <p>Alina Ortega Ramirez</p>
+            <p>
+              {!active_account && (
+                <Image
+                  style={{
+                    position: "relative",
+                    top: "2.2px",
+                    marginRight: "5px",
+                  }}
+                  width={15}
+                  height={15}
+                  priority
+                  src={IconLock}
+                  alt="icon-lock"
+                />
+              )}
+              {student_name}
+            </p>
           </div>
           <div>
-            <p>Secundaria Técnica n45</p>
-            <p>Ignacio Manuel Altamirano</p>
+            <Education>{education}</Education>
+            <p>{school_name}</p>
           </div>
           <div>
-            <p>Guadalupe Ramirez Resendiz</p>
+            <p>{tutor_name}</p>
           </div>
           <div>
-            <p>5615141075</p>
+            <p>{phone_number}</p>
           </div>
           <div>
             <Button
-              onClick={() => router.push("/student/987123g81g893ashjob")}
-              variant="contained"
-              sx={{ color: "#fff", fontFamily: "Prompt", boxShadow: "none" }}
+              onClick={() => router.push(`/student/${uid}/?index=${index}`)}
+              sx={{ fontFamily: "Prompt", boxShadow: "none" }}
             >
-              Ver perfil
+              Detalles
             </Button>
           </div>
         </HeaderInfo>

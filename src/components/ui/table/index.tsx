@@ -24,6 +24,11 @@ const HeaderInfo = styled(Box)<HeaderInfo>`
   }
   @media screen and (max-width: 820px) {
     grid-template-columns: 26% 44% 24%;
+    position: relative;
+    overflow: scroll;
+    padding: 10px 20px;
+    display: -webkit-box;
+    -webkit-box-align: center;
     & div p {
       font-size: 13px;
     }
@@ -32,7 +37,7 @@ const HeaderInfo = styled(Box)<HeaderInfo>`
 
 interface Table {
   thead: Array<string | undefined>;
-  variant: string;
+  variant: string | any;
 }
 
 const Index = ({ thead, variant }: Table) => {

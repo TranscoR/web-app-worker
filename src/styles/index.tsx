@@ -39,5 +39,5 @@ export const ModalTitle = styled(Typography)`
   font-weight: 500;
   text-align: center;
   line-height: 25px;
-  font-family: "Prompt";
+  font-family: "Prompt" !important;
 `;

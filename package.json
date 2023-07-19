@@ -1,5 +1,5 @@
 {
-  "name": "transcor-student",
+  "name": "transcor-worker",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,25 +13,33 @@
     "@emotion/styled": "^11.11.0",
     "@mui/lab": "^5.0.0-alpha.136",
     "@mui/material": "^5.14.0",
+    "@mui/x-date-pickers": "^6.10.0",
+    "@mui/x-date-pickers-pro": "^6.10.0",
     "@next/font": "^13.4.9",
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.1.4",
+    "dayjs": "^1.11.9",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "eslint-plugin-better-styled-components": "^1.1.2",
     "eslint-plugin-styled-components": "^0.0.0",
     "firebase": "^10.0.0",
+    "framer-motion": "^10.12.22",
     "next": "13.4.9",
     "react": "18.2.0",
+    "react-date-range": "^1.4.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.1",
+    "sonner": "^0.6.2",
     "styled-components": "^6.0.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^13.4.9"
+    "@next/bundle-analyzer": "^13.4.9",
+    "@types/react-date-range": "^1.4.4"
   }
 }

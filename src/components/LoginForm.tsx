@@ -5,12 +5,10 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import Input from "@/components/ui/form/Input";
-import Checkbox from "@mui/material/Checkbox";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Field } from "@/styles";
-import { creatAccount } from "@/api/auth";
+import { sigIn } from "@/api/auth";
 
 const Title = styled.h1`
   font-size: 30px;
@@ -30,10 +28,9 @@ const Index = () => {
 
   const onSubmit = (dataForm: any) => {
     setLoading(true);
-    creatAccount(dataForm)
-      .then(() => {
+    sigIn(dataForm)
+      .then((info: any) => {
         setLoading(false);
-        // setUserInfo(info);
         router.push("/home");
       })
       .catch((error) => {
@@ -43,53 +40,30 @@ const Index = () => {
 
   return (
     <Box>
-      <Title>Formulario de Registro</Title>
+      <Title>Iniciar sesión</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Field>
-          <label>Nombre completo</label>
+        <Field sx={{ margin: "0px !important" }}>
+          <label>Correo electrónico</label>
           <Input
-            type="text"
+            type="email"
             register={register}
             errors={errors}
-            keyName="name"
-            placeholder="Escribe un nombre completo"
+            keyName="email"
+            placeholder="Ingresa un correo electrónico"
             required={true}
           />
         </Field>
-        <Box mt={2}>
-          <Stack direction="row" spacing={2}>
-            <Field sx={{ margin: "0px !important" }}>
-              <label>Correo electrónico</label>
-              <Input
-                type="email"
-                register={register}
-                errors={errors}
-                keyName="email"
-                placeholder="Ingresa un correo electrónico"
-                required={true}
-              />
-            </Field>
-            <Field>
-              <label>Contraseña</label>
-              <Input
-                type="password"
-                register={register}
-                errors={errors}
-                keyName="password"
-                placeholder="Escribe una contraseña"
-                required={true}
-              />
-            </Field>
-          </Stack>
-        </Box>
-        <Box mt={2}>
-          <Field>
-            <Checkbox checked={true} />
-            <label style={{ fontWeight: "400" }}>
-              Estoy de acuerdo con lo establecido y con términos y condiciones
-            </label>
-          </Field>
-        </Box>
+        <Field>
+          <label>Contraseña</label>
+          <Input
+            type="password"
+            register={register}
+            errors={errors}
+            keyName="password"
+            placeholder="Escribe una contraseña"
+            required={true}
+          />
+        </Field>
         <LoadingButton
           sx={{ margin: "20px 0 0", color: "#fff", boxShadow: "none" }}
           size="medium"
@@ -99,9 +73,9 @@ const Index = () => {
           variant="contained"
           fullWidth={true}
         >
-          <span>Crear cuenta</span>
+          <span>Entrar</span>
         </LoadingButton>
-        <Link href="/login">
+        <Link href="/register">
           <Button
             fullWidth={true}
             variant="text"
@@ -113,7 +87,7 @@ const Index = () => {
               padding: "6px 30px",
             }}
           >
-            Ya tengo cuenta
+            Crear cuenta
           </Button>
         </Link>
       </form>

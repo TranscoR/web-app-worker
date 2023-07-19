@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export default function Start() {
   useEffect(() => {
-    router.push("/registro-estudiante");
+    router.push("/login");
   });
   return <></>;
 }

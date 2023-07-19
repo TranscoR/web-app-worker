@@ -5,24 +5,16 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface selectProps {
-  id: number;
-  keyName: string;
-  setSchedules: any;
-  schedules: any;
-  schedule: any;
+  id?: number;
+  keyName?: string;
+  filters?: any;
+  setValue?: (a: string) => void;
 }
 
-const Index = ({
-  id,
-  keyName,
-  setSchedules,
-  schedules,
-  schedule,
-}: selectProps) => {
+const Index = ({ filters, setValue }: selectProps) => {
   const handleChange = (event: SelectChangeEvent) => {
-    let objIndex = schedules.findIndex((obj: any) => obj.id == id);
-    schedules[objIndex][keyName] = event.target.value as string;
-    setSchedules(schedules);
+    const value = event.target.value as string;
+    setValue(value);
   };
 
   const ITEM_HEIGHT = 48;
@@ -36,20 +28,20 @@ const Index = ({
     },
   };
 
-  const filters = ["all"];
-
   return (
     <Box sx={{ minWidth: 100 }}>
       <FormControl fullWidth size="small">
         <Select
           id="demo-simple-select"
-          value={schedules[keyName]}
+          // value={}
           onChange={handleChange}
           MenuProps={MenuProps}
-          defaultValue={schedule[keyName]}
+          // defaultValue={}
         >
-          {filters.map((option, i) => (
-            <MenuItem value={option}>{option}</MenuItem>
+          {filters.map((option: string, i: number) => (
+            <MenuItem key={i} value={option}>
+              {option}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

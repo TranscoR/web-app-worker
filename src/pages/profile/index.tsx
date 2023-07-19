@@ -10,6 +10,8 @@ import Box from "@mui/material/Box";
 import ButtonBack from "@/components/ButtonBack";
 import Image from "next/image";
 import IconInfo from "@/assets/icons/info.svg";
+import IconEmail from "@/assets/icons/mail.svg";
+import IconLogout from "@/assets/icons/logout.svg";
 import DaysList from "@/components/ui/list/DaysList";
 import DayCardInfo from "@/components/ui/card/DayCardInfo";
 import Select from "@/components/ui/form/Select";
@@ -31,10 +33,17 @@ const Content = styled(Box)`
 
 const Title = styled.h1`
   font-weight: 500;
+  @media screen and (max-width: 820px) {
+    font-size: 30px;
+  }
 `;
 
 const Email = styled.p`
   font-size: 14px;
+  & img {
+    vertical-align: middle;
+    margin-right: 5px;
+  }
 `;
 
 const Line = styled.hr`
@@ -92,7 +101,12 @@ const Index = () => {
     createPaymentCardsUsers(new_students, school_cycle).then(() => {
       getStudentList().then((res: any) => {
         setLoading(false);
-        toast.success("Ciclo escolar creado");
+        setSelectionRange({
+          startDate: new Date(),
+          endDate: new Date(),
+          key: "selection",
+        });
+        toast.success("Ciclo Escolar Creado");
         setStudentsInfo(res);
       });
     });
@@ -110,7 +124,7 @@ const Index = () => {
       <Header />
       <Content>
         <Stack
-          direction="row"
+          direction={{ xs: "column", sm: "row" }}
           spacing={1}
           mt={1}
           justifyContent="space-between"
@@ -118,7 +132,16 @@ const Index = () => {
           <Box>
             <ButtonBack />
             <Title>{user?.name}</Title>
-            <Email>{user?.email}</Email>
+            <Email>
+              <Image
+                width={14}
+                height={14}
+                priority
+                src={IconEmail}
+                alt="icon-email"
+              />
+              {user?.email}
+            </Email>
           </Box>
           <Box>
             <Button
@@ -129,9 +152,18 @@ const Index = () => {
                 marginRight: "10px",
                 padding: "6px 30px",
                 color: "#1d1d1d",
+                background: "#f2f2f2",
               }}
               onClick={logOut}
             >
+              <Image
+                width={14}
+                height={14}
+                priority
+                src={IconLogout}
+                alt="icon-logout"
+                style={{ marginRight: "5px" }}
+              />
               Cerrar sesión
             </Button>
           </Box>
@@ -190,7 +222,7 @@ const Index = () => {
               </Box>
             </Grid>
             {weeks && weeks?.days.length > 1 && (
-              <Grid item xs={12} md={7}>
+              <Grid item xs={12} md={7} mt={2}>
                 <Box>
                   <Subtitle>Dias elegibles</Subtitle>
                   <Info>Estos son los días para la nueva semana de pago</Info>

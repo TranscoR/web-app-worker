@@ -10,17 +10,6 @@ import IconArrow from "@/assets/icons/chevron.svg";
 import DayCard from "@/components/ui/card/DayCard";
 import { type Student } from "@/types";
 
-const Card = styled(Accordion)`
-  border: 1px solid #d1d1d185 !important;
-  margin-bottom: 12px;
-  margin-top: 12px;
-  border-radius: 20px;
-  padding: 0 15px;
-  @media screen and (max-width: 820px) {
-    padding: 0;
-  }
-`;
-
 const Section = styled(Box)`
   margin-bottom: 20px;
   & h3 {
@@ -114,6 +103,22 @@ const CotentDays = styled(Box)`
     overflow: scroll;
   }
 `;
+
+const CustomAccordion = styled(Accordion)(({ theme }) => {
+  return {
+    borderRadius: "7px !important",
+    margin: "12px 0 !important",
+    boxShadow: "none",
+    border: "1px solid #d1d1d185",
+    ".MuiAccordionDetails-root": {},
+    ".MuiAccordionSummary-root": {
+      "& .Mui-expanded": {
+        margin: "0px !important",
+      },
+    },
+  };
+});
+
 interface Paid {
   paid: boolean;
 }
@@ -150,7 +155,7 @@ const Index = ({
 
   return (
     <Box sx={{ border: "1ps solid #d1d1d185" }}>
-      <Card>
+      <CustomAccordion>
         <AccordionSummary
           expandIcon={
             <Image
@@ -213,7 +218,7 @@ const Index = ({
             </small>
           </Box>
         </AccordionDetails>
-      </Card>
+      </CustomAccordion>
     </Box>
   );
 };

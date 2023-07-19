@@ -203,24 +203,28 @@ const Index = () => {
             alignItems="center"
             mt={5}
           >
-            <Box>
-              <SchoolCycle>
-                Ciclo escolar: {cycleSelected.first_year} -{" "}
-                {cycleSelected.end_year}
-              </SchoolCycle>
-            </Box>
-            <Box>
-              <ButtonFilters onClick={() => setShowFilters(!showFilters)}>
-                <Image
-                  width={15}
-                  height={15}
-                  priority
-                  src={IconCalendar}
-                  alt="icon-calendar"
-                />
-                Ciclo escolar
-              </ButtonFilters>
-            </Box>
+            {!!student?.school_cycle?.length && (
+              <Fragment>
+                <Box>
+                  <SchoolCycle>
+                    Ciclo escolar: {cycleSelected.first_year} -{" "}
+                    {cycleSelected.end_year}
+                  </SchoolCycle>
+                </Box>
+                <Box>
+                  <ButtonFilters onClick={() => setShowFilters(!showFilters)}>
+                    <Image
+                      width={15}
+                      height={15}
+                      priority
+                      src={IconCalendar}
+                      alt="icon-calendar"
+                    />
+                    Ciclo escolar
+                  </ButtonFilters>
+                </Box>
+              </Fragment>
+            )}
           </Stack>
           {showFilters && (
             <FiltersList>
@@ -231,8 +235,7 @@ const Index = () => {
                     sx={{
                       fontFamily: "Prompt",
                       boxShadow: "none",
-                      marginRight: "10px",
-                      padding: "8px 30px",
+                      padding: "8px 10px",
                       backgroundColor: "#e9edf3",
                     }}
                     onClick={() =>

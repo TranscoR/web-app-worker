@@ -8,8 +8,8 @@ const Index = ({ children }: Children) => {
     <Animation>
       <Box mb={4} mt={4}>
         <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
+          direction={{ xs: "row", sm: "row" }}
+          spacing={1}
           alignItems="center"
         >
           {children}

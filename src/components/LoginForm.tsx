@@ -15,6 +15,11 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
+const Logo = styled.h3`
+  color: #c6c6c6;
+  font-weight: 500;
+`;
+
 const Index = () => {
   const router = useRouter();
 
@@ -40,6 +45,7 @@ const Index = () => {
 
   return (
     <Box>
+      <Logo>TranscoR</Logo>
       <Title>Iniciar sesión</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Field sx={{ margin: "0px !important" }}>

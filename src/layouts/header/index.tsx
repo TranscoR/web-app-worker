@@ -78,7 +78,7 @@ const Index = () => {
               padding: "6px 30px",
             }}
           >
-            Ver perfil
+            Perfil
           </Button>
         </Link>
       </Box>

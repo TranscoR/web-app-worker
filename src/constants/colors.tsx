@@ -1,6 +1,6 @@
 export const COLORS = Object.freeze({
   brightYellow: "#F1C93B",
-  lavender: "#CEA9EB",
+  lavender: "#f1ca3b50",
   limeGreen: "#F3FFA5",
   navy: "#001C3F",
   magenta: "#BB3AFF",

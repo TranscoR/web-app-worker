@@ -2,10 +2,13 @@ import styled from "styled-components";
 import { type Day } from "@/types";
 
 const Card = styled.div`
-  background: #f9f9f9;
-  padding: 2px 20px;
+  background: transparent;
+  padding: 2px 20px 6px 10px;
   border-radius: 7px;
   border: 1px solid #ccc;
+  & small {
+    font-size: 12px;
+  }
   & h4 {
     font-size: 15px;
     margin-bottom: 3px;

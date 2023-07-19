@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Input from "@/components/ui/form/Input";
-import Checkbox from "@mui/material/Checkbox";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Field } from "@/styles";
 import { creatAccount } from "@/api/auth";
@@ -15,6 +14,11 @@ import { creatAccount } from "@/api/auth";
 const Title = styled.h1`
   font-size: 30px;
   margin-bottom: 20px;
+`;
+
+const Logo = styled.h3`
+  color: #c6c6c6;
+  font-weight: 500;
 `;
 
 const Index = () => {
@@ -43,6 +47,7 @@ const Index = () => {
 
   return (
     <Box>
+      <Logo>TranscoR</Logo>
       <Title>Formulario de Registro</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Field>
@@ -81,14 +86,6 @@ const Index = () => {
               />
             </Field>
           </Stack>
-        </Box>
-        <Box mt={2}>
-          <Field>
-            <Checkbox checked={true} />
-            <label style={{ fontWeight: "400" }}>
-              Estoy de acuerdo con lo establecido y con términos y condiciones
-            </label>
-          </Field>
         </Box>
         <LoadingButton
           sx={{ margin: "20px 0 0", color: "#fff", boxShadow: "none" }}

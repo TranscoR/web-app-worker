@@ -9,7 +9,7 @@ const Card = styled(Box)`
   border: 1px solid #e8e8e8;
   padding: 20px;
   border-radius: 7px;
-  height: 160px;
+  height: 180px;
 `;
 
 const Title = styled.h3`

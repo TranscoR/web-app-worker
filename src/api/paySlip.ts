@@ -27,9 +27,9 @@ export const createPaymentCardsUsers = (students: any, school_cycle: any) => {
         db.runTransaction(function (transaction) {
           return transaction.get(docRef).then(function (doc) {
             const weeks_updated = [
-              ...school_cycle.weeks,
               // @ts-ignore
               ...doc.data().weeks,
+              ...school_cycle.weeks,
             ];
             transaction.update(docRef, { weeks: weeks_updated });
           });

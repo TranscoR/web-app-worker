@@ -65,7 +65,7 @@ const Index = ({
 
   return (
     <Box sx={{ border: "1ps solid #d1d1d185" }}>
-      <Card>
+      <Card onClick={() => router.push(`/student/${uid}/?index=${index}`)}>
         <HeaderInfo>
           <div>
             <p>

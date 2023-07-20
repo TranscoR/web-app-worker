@@ -80,7 +80,7 @@ const Index = () => {
               padding: "6px 30px",
             }}
           >
-            Perfil
+            Mi cuenta
           </Button>
         </Link>
       </Box>

@@ -104,6 +104,12 @@ export default createGlobalStyle`
       font-family: 'Prompt';
       text-transform: capitalize;
     }
+    .css-epa1mx {
+      border-radius: 7px;
+    }
+    .css-ra4nyu {
+      padding: 11.5px 14px;
+    }
     .css-hjhjda {
       font-family: 'Prompt';
       text-transform: capitalize;

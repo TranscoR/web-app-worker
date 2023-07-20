@@ -1,3 +1,5 @@
+import { Main } from "@/templates/Main";
+import { Meta } from "@/layouts/Meta";
 import React, { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -135,150 +137,162 @@ const Index = () => {
     );
 
   return (
-    <Box mt={14}>
-      <Header />
-      <Content>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
-          justifyContent="space-between"
-        >
-          <Box>
-            <ButtonBack />
-            <StudentName>{student?.student_name}</StudentName>
-          </Box>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={student?.active_account}
-                onChange={disableAccountHandle}
-                inputProps={{ "aria-label": "controlled" }}
-              />
-            }
-            label={
-              student?.active_account ? "Cuenta activada" : "Activar cuenta"
-            }
-          />
-        </Stack>
-        <Grid container mt={3} columnSpacing={5} rowSpacing={1.5}>
-          <Grid item xs={12} md={4}>
-            <StudentInfoCard title="Escuela" icon={IconSchool}>
-              <Text>
-                {student?.education} {student?.school_name}
-              </Text>
-              <Text style={{ textTransform: "capitalize" }}>
-                Grado: {student?.grade} {student?.turn}
-              </Text>
-            </StudentInfoCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StudentInfoCard title="Dirección" icon={IconAddress}>
-              <Text>{student?.address}</Text>
-              <Text>
-                Casa color {student?.house_color} con zaguán color{" "}
-                {student?.door_color}, entre calle{" "}
-                {student?.first_street_reference} y{" "}
-                {student?.second_street_reference}
-              </Text>
-            </StudentInfoCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StudentInfoCard title="Tutor" icon={IconTutor}>
-              <Text>{student?.tutor_name}</Text>
-              <Text>
-                Casa: {student?.house_phone_number} &nbsp;&nbsp; Celular:{" "}
-                {student?.phone_number}
-              </Text>
-              <Text>Otro Familiar: {student?.subtutor_name}</Text>
-              <Text>Celular: {student?.subtutor_phone_number}</Text>
-            </StudentInfoCard>
-          </Grid>
-        </Grid>
-        <Box>
+    <Main
+      meta={
+        <Meta
+          title={`TranscoR - ${student?.student_name}`}
+          description="lleva el control de los pagos de tus estudiantes"
+        />
+      }
+    >
+      <Box mt={14}>
+        <Header />
+        <Content>
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
             justifyContent="space-between"
-            alignItems="center"
-            mt={5}
           >
-            {!!student?.school_cycle?.length && (
-              <Fragment>
-                <Box>
-                  <SchoolCycle>
-                    Ciclo escolar: {cycleSelected.first_year} -{" "}
-                    {cycleSelected.end_year}
-                  </SchoolCycle>
-                </Box>
-                <Box>
-                  <ButtonFilters onClick={() => setShowFilters(!showFilters)}>
-                    <Image
-                      width={15}
-                      height={15}
-                      priority
-                      src={IconCalendar}
-                      alt="icon-calendar"
-                    />
-                    Ciclo escolar
-                  </ButtonFilters>
-                </Box>
-              </Fragment>
-            )}
-          </Stack>
-          {showFilters && (
-            <Box mt={1}>
-              <small>Elige un ciclo escolar:</small>
-              <FiltersList>
-                <Fragment>
-                  {student?.school_cycle?.map((cycle: any) => (
-                    <Button
-                      variant="contained"
-                      sx={{
-                        fontFamily: "Prompt",
-                        boxShadow: "none",
-                        padding: "8px 10px",
-                        color:
-                          cycleSelected.first_year === cycle.first_year
-                            ? "#f1ca3b"
-                            : "#1d1d1d",
-                        backgroundColor:
-                          cycleSelected.first_year === cycle.first_year
-                            ? "#f1ca3b20"
-                            : "#e9edf3",
-                      }}
-                      onClick={() =>
-                        setCycleSelected({
-                          first_year: cycle.first_year,
-                          end_year: cycle.end_year,
-                        })
-                      }
-                    >
-                      {cycle.first_year} - {cycle.end_year}
-                    </Button>
-                  ))}
-                </Fragment>
-              </FiltersList>
-            </Box>
-          )}
-          {cyclesFiltered && cyclesFiltered.length ? (
             <Box>
-              <Table thead={thead} variant="week" />
-              {cyclesFiltered &&
-                cyclesFiltered.length &&
-                cyclesFiltered[0].weeks?.map((week: any, i: number) => (
-                  <WeekCard
-                    {...week}
-                    i={i}
-                    student={student}
-                    cycleSelected={cycleSelected}
-                  />
-                ))}
+              <ButtonBack />
+              <StudentName>{student?.student_name}</StudentName>
             </Box>
-          ) : null}
-        </Box>
-      </Content>
-      <Toaster position="bottom-right" />
-    </Box>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={student?.active_account}
+                  onChange={disableAccountHandle}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={
+                student?.active_account ? "Cuenta activada" : "Activar cuenta"
+              }
+            />
+          </Stack>
+          <Box mt={3} mb={1}>
+            <p>Información</p>
+          </Box>
+          <Grid container columnSpacing={5} rowSpacing={1.5}>
+            <Grid item xs={12} md={4}>
+              <StudentInfoCard title="Escuela" icon={IconSchool}>
+                <Text>
+                  {student?.education} {student?.school_name}
+                </Text>
+                <Text style={{ textTransform: "capitalize" }}>
+                  Grado: {student?.grade} {student?.turn}
+                </Text>
+              </StudentInfoCard>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <StudentInfoCard title="Dirección" icon={IconAddress}>
+                <Text>{student?.address}</Text>
+                <Text>
+                  Casa color {student?.house_color} con zaguán color{" "}
+                  {student?.door_color}, entre calle{" "}
+                  {student?.first_street_reference} y{" "}
+                  {student?.second_street_reference}
+                </Text>
+              </StudentInfoCard>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <StudentInfoCard title="Tutor" icon={IconTutor}>
+                <Text>{student?.tutor_name}</Text>
+                <Text>
+                  Casa: {student?.house_phone_number} &nbsp;&nbsp; Celular:{" "}
+                  {student?.phone_number}
+                </Text>
+                <Text>Otro Familiar: {student?.subtutor_name}</Text>
+                <Text>Celular: {student?.subtutor_phone_number}</Text>
+              </StudentInfoCard>
+            </Grid>
+          </Grid>
+          <Box>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={2}
+              justifyContent="space-between"
+              alignItems="center"
+              mt={5}
+            >
+              {!!student?.school_cycle?.length && (
+                <Fragment>
+                  <Box>
+                    <SchoolCycle>
+                      Ciclo escolar: {cycleSelected.first_year} -{" "}
+                      {cycleSelected.end_year}
+                    </SchoolCycle>
+                  </Box>
+                  <Box>
+                    <ButtonFilters onClick={() => setShowFilters(!showFilters)}>
+                      <Image
+                        width={15}
+                        height={15}
+                        priority
+                        src={IconCalendar}
+                        alt="icon-calendar"
+                      />
+                      Ciclo escolar
+                    </ButtonFilters>
+                  </Box>
+                </Fragment>
+              )}
+            </Stack>
+            {showFilters && (
+              <Box mt={1}>
+                <small>Elige un ciclo escolar:</small>
+                <FiltersList>
+                  <Fragment>
+                    {student?.school_cycle?.map((cycle: any) => (
+                      <Button
+                        variant="contained"
+                        sx={{
+                          fontFamily: "Prompt",
+                          boxShadow: "none",
+                          padding: "8px 10px",
+                          color:
+                            cycleSelected.first_year === cycle.first_year
+                              ? "#f1ca3b"
+                              : "#1d1d1d",
+                          backgroundColor:
+                            cycleSelected.first_year === cycle.first_year
+                              ? "#f1ca3b20"
+                              : "#e9edf3",
+                        }}
+                        onClick={() =>
+                          setCycleSelected({
+                            first_year: cycle.first_year,
+                            end_year: cycle.end_year,
+                          })
+                        }
+                      >
+                        {cycle.first_year} - {cycle.end_year}
+                      </Button>
+                    ))}
+                  </Fragment>
+                </FiltersList>
+              </Box>
+            )}
+            {cyclesFiltered && cyclesFiltered.length ? (
+              <Box>
+                <Table thead={thead} variant="week" />
+                {cyclesFiltered &&
+                  cyclesFiltered.length &&
+                  cyclesFiltered[0].weeks?.map((week: any, i: number) => (
+                    <WeekCard
+                      {...week}
+                      i={i}
+                      student={student}
+                      cycleSelected={cycleSelected}
+                    />
+                  ))}
+              </Box>
+            ) : null}
+          </Box>
+        </Content>
+        <Toaster position="bottom-right" />
+      </Box>
+    </Main>
   );
 };
 

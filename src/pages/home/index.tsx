@@ -1,3 +1,5 @@
+import { Main } from "@/templates/Main";
+import { Meta } from "@/layouts/Meta";
 import { Fragment, useState } from "react";
 import styled from "styled-components";
 import Header from "@/layouts/header";
@@ -94,88 +96,97 @@ const Index = () => {
   const thead = ["Alumno", "Escuela", "Tutor", "Contacto", ""];
 
   return (
-    <Box mt={14}>
-      <Header />
-      <Content>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Box>
-            <Title>Alumnos</Title>
-            <Counter>{filteredData?.length} Encontrados</Counter>
-          </Box>
-          <Box>
-            <Stack direction="row" spacing={2} alignItems="center">
-              <Box>
-                <ButtonFilters onClick={() => setShowFilters(!showFilters)}>
-                  <Image
-                    width={15}
-                    height={15}
-                    priority
-                    src={IconFilters}
-                    alt="icon-filters"
-                  />
-                  Filtros
-                </ButtonFilters>
-              </Box>
-            </Stack>
-          </Box>
-        </Stack>
-        {showFilters && (
-          <FiltersList>
-            <Field>
-              <Label>Buscar por alumno o escuela</Label>
-              <Input
-                variant="outlined"
-                sx={{ fontFamily: "Prompt" }}
-                fullWidth={true}
-                placeholder="Buscar alumno o escuela"
-                onChange={(e: any) => setFilterName(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Image
-                        width={15}
-                        height={15}
-                        priority
-                        src={IconFinder}
-                        alt="icon-finder"
-                      />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Field>
-            <Field>
-              <Label>Educación</Label>
-              <Select
-                filters={EDUCATION_OPTIONS}
-                setValue={setFilterEducation}
-              />
-            </Field>
-          </FiltersList>
-        )}
-        <Box>
-          {filteredStudents && filteredStudents?.length ? (
-            <Fragment>
-              <Table variant="student" thead={thead} />
-              {filteredStudents.map((student: Student, i: number) => (
-                <Animation>
-                  <StudentCard {...student} index={i} />
-                </Animation>
-              ))}
-            </Fragment>
-          ) : (
-            <Box mt={5}>
-              <p>No se encontraron resultados</p>
+    <Main
+      meta={
+        <Meta
+          title="TranscoR - Inicio"
+          description="lleva el control de los pagos de tus estudiantes"
+        />
+      }
+    >
+      <Box mt={14}>
+        <Header />
+        <Content>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Box>
+              <Title>Alumnos</Title>
+              <Counter>{filteredData?.length} Encontrados</Counter>
             </Box>
+            <Box>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Box>
+                  <ButtonFilters onClick={() => setShowFilters(!showFilters)}>
+                    <Image
+                      width={15}
+                      height={15}
+                      priority
+                      src={IconFilters}
+                      alt="icon-filters"
+                    />
+                    Filtros
+                  </ButtonFilters>
+                </Box>
+              </Stack>
+            </Box>
+          </Stack>
+          {showFilters && (
+            <FiltersList>
+              <Field>
+                <Label>Buscar por alumno o escuela</Label>
+                <Input
+                  variant="outlined"
+                  sx={{ fontFamily: "Prompt" }}
+                  fullWidth={true}
+                  placeholder="Buscar alumno o escuela"
+                  onChange={(e: any) => setFilterName(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Image
+                          width={15}
+                          height={15}
+                          priority
+                          src={IconFinder}
+                          alt="icon-finder"
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Field>
+              <Field>
+                <Label>Educación</Label>
+                <Select
+                  filters={EDUCATION_OPTIONS}
+                  setValue={setFilterEducation}
+                />
+              </Field>
+            </FiltersList>
           )}
-        </Box>
-      </Content>
-    </Box>
+          <Box>
+            {filteredStudents && filteredStudents?.length ? (
+              <Fragment>
+                <Table variant="student" thead={thead} />
+                {filteredStudents.map((student: Student, i: number) => (
+                  <Animation>
+                    <StudentCard {...student} index={i} />
+                  </Animation>
+                ))}
+              </Fragment>
+            ) : (
+              <Box mt={5}>
+                <p>No se encontraron resultados</p>
+              </Box>
+            )}
+          </Box>
+        </Content>
+      </Box>
+    </Main>
   );
 };
 

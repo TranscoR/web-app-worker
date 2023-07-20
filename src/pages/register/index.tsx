@@ -1,3 +1,5 @@
+import { Main } from "@/templates/Main";
+import { Meta } from "@/layouts/Meta";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import RegisterForm from "@/components/RegisterForm";
@@ -21,13 +23,22 @@ const ContentRight = styled(Box)`
 
 const Index = () => {
   return (
-    <Content>
-      <Box>
-        <ContentRight>
-          <RegisterForm />
-        </ContentRight>
-      </Box>
-    </Content>
+    <Main
+      meta={
+        <Meta
+          title="TranscoR - Registro"
+          description="lleva el control de los pagos de tus estudiantes"
+        />
+      }
+    >
+      <Content>
+        <Box>
+          <ContentRight>
+            <RegisterForm />
+          </ContentRight>
+        </Box>
+      </Content>
+    </Main>
   );
 };
 

@@ -1,3 +1,5 @@
+import { Main } from "@/templates/Main";
+import { Meta } from "@/layouts/Meta";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -121,137 +123,146 @@ const Index = () => {
   };
 
   return (
-    <Box mt={14}>
-      <Header />
-      <Content>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={1}
-          mt={1}
-          justifyContent="space-between"
-        >
-          <Box>
-            <ButtonBack />
-            <Title>{user?.name}</Title>
-            <Email>
-              <Image
-                width={14}
-                height={14}
-                priority
-                src={IconEmail}
-                alt="icon-email"
-              />
-              {user?.email}
-            </Email>
-          </Box>
-          <Box>
-            <Button
-              variant="text"
-              sx={{
-                fontFamily: "Prompt",
-                boxShadow: "none",
-                marginRight: "10px",
-                padding: "6px 30px",
-                color: "#1d1d1d",
-                background: "#f2f2f2",
-              }}
-              onClick={logOut}
-            >
-              <Image
-                width={14}
-                height={14}
-                priority
-                src={IconLogout}
-                alt="icon-logout"
-                style={{ marginRight: "5px" }}
-              />
-              Cerrar sesión
-            </Button>
-          </Box>
-        </Stack>
-        <Line />
-        <Box>
-          <Box mb={5}>
-            <Subtitle>Crear ciclo escolar</Subtitle>
-            <Stack
-              direction="row"
-              alignItems="center"
-              spacing={1}
-              mt={1}
-              mb={3}
-            >
-              <Select filters={YEARS_OPTIONS} setValue={setFirstYear} />
-              <p>-</p>
-              {firstYear && (
-                <h3 style={{ fontWeight: "500" }}>
-                  {/* @ts-ignore */}
-                  {parseInt(firstYear) + 1}
-                </h3>
-              )}
-            </Stack>
-            <Stack direction="row" spacing={1} mt={1}>
-              <Box>
+    <Main
+      meta={
+        <Meta
+          title="TranscoR - Mi cuenta"
+          description="lleva el control de los pagos de tus estudiantes"
+        />
+      }
+    >
+      <Box mt={14}>
+        <Header />
+        <Content>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1}
+            mt={1}
+            justifyContent="space-between"
+          >
+            <Box>
+              <ButtonBack />
+              <Title>{user?.name}</Title>
+              <Email>
                 <Image
-                  width={20}
-                  height={20}
+                  width={14}
+                  height={14}
                   priority
-                  src={IconInfo}
-                  alt="icon-info"
+                  src={IconEmail}
+                  alt="icon-email"
                 />
-              </Box>
-              <Box>
-                <Info>
-                  Solamente se agregara la nueva semana de pago a todos los
-                  estudiantes activos
-                </Info>
-              </Box>
-            </Stack>
-          </Box>
-          {/* <Box>
+                {user?.email}
+              </Email>
+            </Box>
+            <Box>
+              <Button
+                variant="text"
+                sx={{
+                  fontFamily: "Prompt",
+                  boxShadow: "none",
+                  marginRight: "10px",
+                  padding: "6px 30px",
+                  color: "#1d1d1d",
+                  background: "#f2f2f2",
+                }}
+                onClick={logOut}
+              >
+                <Image
+                  width={14}
+                  height={14}
+                  priority
+                  src={IconLogout}
+                  alt="icon-logout"
+                  style={{ marginRight: "5px" }}
+                />
+                Cerrar sesión
+              </Button>
+            </Box>
+          </Stack>
+          <Line />
+          <Box>
+            <Box mb={5}>
+              <Subtitle>Crear ciclo escolar</Subtitle>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                mt={1}
+                mb={3}
+              >
+                <Select filters={YEARS_OPTIONS} setValue={setFirstYear} />
+                <p>-</p>
+                {firstYear && (
+                  <h3 style={{ fontWeight: "500" }}>
+                    {/* @ts-ignore */}
+                    {parseInt(firstYear) + 1}
+                  </h3>
+                )}
+              </Stack>
+              <Stack direction="row" spacing={1} mt={1}>
+                <Box>
+                  <Image
+                    width={20}
+                    height={20}
+                    priority
+                    src={IconInfo}
+                    alt="icon-info"
+                  />
+                </Box>
+                <Box>
+                  <Info>
+                    Solamente se agregara la nueva semana de pago a todos los
+                    estudiantes activos
+                  </Info>
+                </Box>
+              </Stack>
+            </Box>
+            {/* <Box>
             <Subtitle>Crear a un </Subtitle>
           </Box> */}
-          <Grid container mt={3} columnSpacing={5}>
-            <Grid item xs={12} md={5}>
-              <Box>
-                <DateRange
-                  selectionRange={selectionRange}
-                  setSelectionRange={setSelectionRange}
-                />
-                <Box mt={2}>
-                  <Info>Selecciona los días de Lunes a Viernes</Info>
-                </Box>
-              </Box>
-            </Grid>
-            {weeks && weeks?.days.length > 1 && (
-              <Grid item xs={12} md={7} mt={2}>
+            <Grid container mt={3} columnSpacing={5}>
+              <Grid item xs={12} md={5}>
                 <Box>
-                  <Subtitle>Dias elegibles</Subtitle>
-                  <Info>Estos son los días para la nueva semana de pago</Info>
-                  <DaysList>
-                    {weeks?.days.map((day: Day) => (
-                      <DayCardInfo {...day} />
-                    ))}
-                  </DaysList>
-                  <LoadingButton
-                    variant="contained"
-                    sx={{
-                      color: "#fff",
-                      fontFamily: "Prompt",
-                      boxShadow: "none",
-                    }}
-                    onClick={createPaymentCards}
-                    loading={loading}
-                  >
-                    <span>Crear ciclo escolar</span>
-                  </LoadingButton>
+                  <DateRange
+                    selectionRange={selectionRange}
+                    setSelectionRange={setSelectionRange}
+                  />
+                  <Box mt={2}>
+                    <Info>Selecciona los días de Lunes a Viernes</Info>
+                  </Box>
                 </Box>
               </Grid>
-            )}
-          </Grid>
-        </Box>
-      </Content>
-      <Toaster position="bottom-right" />
-    </Box>
+              {weeks && weeks?.days.length > 1 && (
+                <Grid item xs={12} md={7} mt={2}>
+                  <Box>
+                    <Subtitle>Dias elegibles</Subtitle>
+                    <Info>Estos son los días para la nueva semana de pago</Info>
+                    <DaysList>
+                      {weeks?.days.map((day: Day) => (
+                        <DayCardInfo {...day} />
+                      ))}
+                    </DaysList>
+                    <LoadingButton
+                      variant="contained"
+                      sx={{
+                        color: "#fff",
+                        fontFamily: "Prompt",
+                        boxShadow: "none",
+                      }}
+                      onClick={createPaymentCards}
+                      loading={loading}
+                    >
+                      <span>Crear ciclo escolar</span>
+                    </LoadingButton>
+                  </Box>
+                </Grid>
+              )}
+            </Grid>
+          </Box>
+        </Content>
+        <Toaster position="bottom-right" />
+      </Box>
+    </Main>
   );
 };
 

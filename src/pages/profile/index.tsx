@@ -20,6 +20,7 @@ import { createPaymentCardsUsers } from "@/api/paySlip";
 import { getPaySlip } from "@/services/utils/dates";
 import { useStudentsStore, useUserStore } from "@/store";
 import { getStudentList } from "@/api/students";
+import { YEARS_OPTIONS } from "@/mocks/options";
 import { type Student, type Day } from "@/types";
 import { Toaster, toast } from "sonner";
 
@@ -179,10 +180,7 @@ const Index = () => {
               mt={1}
               mb={3}
             >
-              <Select
-                filters={["2023", "2024", "2025"]}
-                setValue={setFirstYear}
-              />
+              <Select filters={YEARS_OPTIONS} setValue={setFirstYear} />
               <p>-</p>
               {firstYear && (
                 <h3 style={{ fontWeight: "500" }}>
@@ -209,6 +207,9 @@ const Index = () => {
               </Box>
             </Stack>
           </Box>
+          {/* <Box>
+            <Subtitle>Crear a un </Subtitle>
+          </Box> */}
           <Grid container mt={3} columnSpacing={5}>
             <Grid item xs={12} md={5}>
               <Box>

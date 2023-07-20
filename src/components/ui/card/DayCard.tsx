@@ -5,14 +5,30 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
 import Image from "next/image";
 import IconCheck from "@/assets/icons/check.svg";
+import IconDollar from "@/assets/icons/dollar-sign.svg";
 import { ModalContent, ContentTitle, ModalTitle } from "@/styles";
 import { updateStudentSchoolCycle } from "@/api/students";
 import { renderDateFirebase } from "@/services/utils/dates";
 import { useStudentsStore } from "@/store";
 import { type Student } from "@/types";
 import { Toaster, toast } from "sonner";
+
+const Input = styled(TextField)(({}) => ({
+  "& .MuiInputBase-input": {
+    fontSize: "15px",
+    padding: "12px 20px 13px 0px",
+    fontFamily: "Prompt",
+  },
+  "& .MuiInputBase-root": {
+    borderRadius: "7px",
+    border: "none !important",
+  },
+}));
+
 interface Paid {
   paid: boolean;
 }
@@ -75,6 +91,7 @@ interface DayCard {
   week_index: any;
   student: Student;
   cycleSelected: any;
+  amount: number;
 }
 
 const Index = ({
@@ -85,6 +102,7 @@ const Index = ({
   paid_date,
   week_index,
   student,
+  amount,
   cycleSelected,
 }: DayCard) => {
   const router = useRouter();
@@ -102,6 +120,8 @@ const Index = ({
   // @ts-ignore
   const student_index = parseInt(query?.index);
 
+  const [amount_value, setAmount] = useState<number | null>(null);
+
   const payHandle = () => {
     // @ts-ignore
     let studentsRef = students;
@@ -110,6 +130,8 @@ const Index = ({
       (cycle: any) => cycle.first_year === cycleSelected.first_year
     );
     school_cycle_selected[0].weeks[week_index].days[day - 1].paid = true;
+    school_cycle_selected[0].weeks[week_index].days[day - 1].amount =
+      amount_value;
     school_cycle_selected[0].weeks[week_index].days[day - 1].paid_date =
       // @ts-ignore
       new window.Date();
@@ -149,14 +171,14 @@ const Index = ({
           <Status paid={paid}>{paid ? "Pagado" : "Pendiente"}</Status>
           {paid && (
             <DatepPay>
-              <Image
+              {/* <Image
                 width={12}
                 height={12}
                 priority
                 src={IconCheck}
                 alt="icon-check"
-              />
-              {renderDateFirebase(paid_date)}
+              /> */}
+              {/* {renderDateFirebase(paid_date)} */}${amount}
             </DatepPay>
           )}
         </Box>
@@ -169,22 +191,46 @@ const Index = ({
       >
         <ModalContent>
           <ContentTitle>
-            <ModalTitle>¿El Tutor ya realizo el pago?</ModalTitle>
+            <ModalTitle>Confirmar cantidad de pago</ModalTitle>
+            <Box mt={2}>
+              <Input
+                variant="outlined"
+                sx={{ fontFamily: "Prompt" }}
+                fullWidth={true}
+                placeholder="Cantidad"
+                onChange={(e: any) => setAmount(parseInt(e.target.value))}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Image
+                        width={16}
+                        height={16}
+                        priority
+                        src={IconDollar}
+                        alt="icon-dollar"
+                      />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
           </ContentTitle>
-          <Box mt={3}>
+          <Box mt={2}>
             <Stack direction="row" spacing={2} justifyContent="center">
               <Button
                 sx={{ fontFamily: "Prompt", color: "#1d1d1d" }}
                 onClick={handleClose}
               >
-                No
+                Cancelar
               </Button>
               <Button
                 variant="contained"
                 sx={{ color: "#fff", fontFamily: "Prompt", boxShadow: "none" }}
+                // @ts-ignore
+                disabled={amount_value ? false : true}
                 onClick={payHandle}
               >
-                Si
+                Confirmar
               </Button>
             </Stack>
           </Box>

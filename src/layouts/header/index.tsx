@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -34,6 +35,8 @@ const Header = styled.header`
 `;
 
 const Index = () => {
+  const router = useRouter();
+
   // @ts-ignore
   const students = useStudentsStore((state) => state.students);
   // @ts-ignore

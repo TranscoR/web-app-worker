@@ -3,7 +3,16 @@ import { useEffect } from "react";
 
 export default function Start() {
   useEffect(() => {
-    router.push("/login");
+    // @ts-ignore
+    const user_uid =
+      typeof window !== "undefined" && localStorage?.getItem("user_uid");
+
+    if (user_uid === null) {
+      router.push("/login");
+      return;
+    } else {
+      router.push("/home");
+    }
   });
   return <></>;
 }

@@ -93,7 +93,7 @@ const Index = () => {
     const school_cycle = {
       first_year: firstYear,
       // @ts-ignore
-      end_year: parseInt(firstYear) + 1,
+      end_year: JSON.stringify(parseInt(firstYear) + 1),
       weeks: [weeks],
     };
     setLoading(true);

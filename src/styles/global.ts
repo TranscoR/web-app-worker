@@ -114,4 +114,7 @@ export default createGlobalStyle`
       font-family: 'Prompt';
       text-transform: capitalize;
     }
+    .css-1p0n81l {
+      font-family: 'Prompt';
+    }
 `;

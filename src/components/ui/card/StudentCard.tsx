@@ -54,6 +54,7 @@ const Education = styled.p`
 const Index = ({
   index,
   uid,
+  list_number,
   active_account,
   student_name,
   education,
@@ -69,6 +70,7 @@ const Index = ({
         <HeaderInfo>
           <div>
             <p>
+              #{list_number}{" "}
               {!active_account && (
                 <Image
                   style={{

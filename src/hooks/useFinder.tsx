@@ -7,7 +7,8 @@ export const useFinder = (value: string | null, data: any[]) => {
             .includes(value.toLocaleLowerCase()) ||
           item.school_name
             .toLocaleLowerCase()
-            .includes(value.toLocaleLowerCase())
+            .includes(value.toLocaleLowerCase()) ||
+          item.list_number.includes(value)
       )
     : data;
 };

@@ -4,8 +4,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Header from "@/layouts/header";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
@@ -13,13 +13,14 @@ import Table from "@/components/ui/table";
 import FiltersList from "@/components/ui/list/FiltersList";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Image from "next/image";
+import IconAddress from "@/assets/icons/map-pin.svg";
+import IconSchool from "@/assets/icons/home.svg";
+import IconTutor from "@/assets/icons/user.svg";
+import IconCalendar from "@/assets/icons/calendar.svg";
+import IconPrinter from "@/assets/icons/printer.svg";
 import WeekCard from "@/components/ui/card/WeekCard";
 import ButtonBack from "@/components/ButtonBack";
 import StudentInfoCard from "@/components/ui/card/StudenInfoCard";
-import IconSchool from "@/assets/icons/home.svg";
-import IconAddress from "@/assets/icons/map-pin.svg";
-import IconTutor from "@/assets/icons/user.svg";
-import IconCalendar from "@/assets/icons/calendar.svg";
 import { getSchoolCycleByStudent } from "@/api/students";
 import { useStudentsStore } from "@/store";
 import { updateStudentInfo } from "@/api/students";
@@ -63,6 +64,20 @@ const ButtonFilters = styled.button`
     margin-right: 5px;
   }
 `;
+
+const ButtonPrinter = styled.button`
+  border: none;
+  background-color: #e9edf3;
+  padding: 10px;
+  border-radius: 7px;
+  margin-top: 10px;
+  cursor: pointer;
+  & img {
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+`;
+
 interface cycleSelected {
   first_year: string;
   end_year: string;
@@ -71,9 +86,9 @@ interface cycleSelected {
 const Index = () => {
   const router = useRouter();
   const query = router.query;
+  const student_id = router.query.student_id;
 
   const thead = ["Num Semana", "Semana", "Pago", ""];
-  const student_id = router.query.student_id;
 
   // @ts-ignore
   const students = useStudentsStore((state) => state.students);
@@ -136,6 +151,13 @@ const Index = () => {
       (cycle: any) => cycle.first_year === cycleSelected?.first_year
     );
 
+  const goToPrintView = () => {
+    window.open(
+      `/print-school-cycle/${student.uid}?fy=${cycleSelected.first_year}&ey=${cycleSelected.end_year}`,
+      "_blank"
+    );
+  };
+
   return (
     <Main
       meta={
@@ -148,11 +170,7 @@ const Index = () => {
       <Box mt={14}>
         <Header />
         <Content>
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            justifyContent="space-between"
-          >
+          <Stack direction="row" spacing={2} justifyContent="space-between">
             <Box>
               <ButtonBack />
               <StudentName>{student?.student_name}</StudentName>
@@ -169,6 +187,10 @@ const Index = () => {
                 student?.active_account ? "Cuenta activada" : "Activar cuenta"
               }
             />
+            {/* <ProfileOptions
+              active_account={student?.active_account}
+              disableAccountHandle={disableAccountHandle}
+            /> */}
           </Stack>
           <Box mt={3} mb={1}>
             <p>Información</p>
@@ -222,6 +244,16 @@ const Index = () => {
                       Ciclo escolar: {cycleSelected.first_year} -{" "}
                       {cycleSelected.end_year}
                     </SchoolCycle>
+                    <ButtonPrinter onClick={goToPrintView}>
+                      <Image
+                        width={15}
+                        height={15}
+                        priority
+                        src={IconPrinter}
+                        alt="icon-printer"
+                      />
+                      Imprimir ciclo escolar
+                    </ButtonPrinter>
                   </Box>
                   <Box>
                     <ButtonFilters onClick={() => setShowFilters(!showFilters)}>

@@ -8,7 +8,11 @@ interface HeaderInfo {
 const HeaderInfo = styled(Box)<HeaderInfo>`
   display: grid;
   grid-template-columns: ${({ variant }) =>
-    variant === "student" ? "23% 22% 28% 15% 12%" : "17% 30% 24% 15% 12%"};
+    variant === "student"
+      ? "23% 22% 28% 15% 12%"
+      : variant === "charges"
+      ? "23% 18% 11% 15% 15% 5%"
+      : "17% 30% 24% 15% 12%"};
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   align-items: flex-end;

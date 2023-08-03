@@ -137,12 +137,12 @@ const Index = () => {
           {showFilters && (
             <FiltersList>
               <Field>
-                <Label>Buscar por alumno o escuela</Label>
+                <Label>Buscar por alumno o escuela o número de lista</Label>
                 <Input
                   variant="outlined"
                   sx={{ fontFamily: "Prompt" }}
                   fullWidth={true}
-                  placeholder="Buscar alumno o escuela"
+                  placeholder="Buscar alumno o escuela número de lista"
                   onChange={(e: any) => setFilterName(e.target.value)}
                   InputProps={{
                     startAdornment: (

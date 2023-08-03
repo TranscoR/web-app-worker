@@ -23,7 +23,11 @@ const getDates = (startDate: any, stopDate: any) => {
   return dateArray;
 };
 
-export const getPaySlip = (start_date: any, end_date: any) => {
+export const getPaySlip = (
+  start_date: any,
+  end_date: any,
+  checked: boolean
+) => {
   let from = new Date(start_date);
   let to = new Date(end_date);
   let days = [];
@@ -47,6 +51,7 @@ export const getPaySlip = (start_date: any, end_date: any) => {
   });
 
   return {
+    vacations: checked,
     start_week: getLabelDate(days_dates[0]),
     end_week: getLabelDate(days_dates[days_dates.length - 1]),
     payment_completed: false,
@@ -61,5 +66,6 @@ export const renderDateFirebase = (value_date: any) => {
   );
   const month = date.getMonth();
   const day = date.getDate();
-  return `${day} ${MONTH_NAMES[month]}`;
+  const year = date.getFullYear();
+  return `${day} ${MONTH_NAMES[month]} de ${year}`;
 };

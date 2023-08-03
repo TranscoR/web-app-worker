@@ -1,5 +1,6 @@
 export interface Student {
   index: number;
+  list_number: string;
   active_account: boolean;
   uid: string;
   student_name: string;
@@ -33,4 +34,20 @@ export interface Day {
   label_date: string;
   label_day: string;
   paid: boolean;
+}
+
+export interface Cost {
+  created_at: string;
+  name: string;
+  price: string | number;
+  description: string;
+}
+
+export interface Charge {
+  amount: number;
+  created_at: any;
+  cycle_id: string;
+  student_name: string;
+  transfer_payment: boolean;
+  week: any;
 }

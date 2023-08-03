@@ -60,8 +60,8 @@ const Index = (props: InputProps) => {
         placeholder={placeholder}
         InputProps={
           endAdornment && {
-            endAdornment: (
-              <InputAdornment position="end">{endAdornment}</InputAdornment>
+            startAdornment: (
+              <InputAdornment position="start">{endAdornment}</InputAdornment>
             ),
           }
         }

@@ -1,21 +1,25 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Image from "next/image";
-import IconCheck from "@/assets/icons/check.svg";
 import IconDollar from "@/assets/icons/dollar-sign.svg";
+import IconTransfer from "@/assets/icons/transfer.svg";
 import { ModalContent, ContentTitle, ModalTitle } from "@/styles";
 import { updateStudentSchoolCycle } from "@/api/students";
-import { renderDateFirebase } from "@/services/utils/dates";
 import { useStudentsStore } from "@/store";
+import { addCharger } from "@/api/user";
+import { useUserStore } from "@/store";
 import { type Student } from "@/types";
 import { Toaster, toast } from "sonner";
+import { generateUid } from "@/services/utils/generateUid";
+import { COLORS } from "@/constants/colors";
 
 const Input = styled(TextField)(({}) => ({
   "& .MuiInputBase-input": {
@@ -34,82 +38,67 @@ interface Paid {
 }
 
 const Card = styled(Box)<Paid>`
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 420px;
   background-color: ${({ paid }) => (paid ? "#f1ca3b2a" : "#cccccc2e")};
   border: ${({ paid }) => (paid ? "1px solid #f1c93b" : "1px solid #ccc")};
-  padding: 10px;
+  padding: 20px;
   border-radius: 12px;
-  text-align: center;
   cursor: pointer;
 `;
 
-const Day = styled.p`
-  margin-bottom: 5px;
-  text-align: center;
-  font-weight: 400;
-  font-size: 12px;
-  text-transform: capitalize;
-  & img {
-    position: relative;
-    top: 2px;
-    margin-right: 2px;
+const Field = styled(Box)`
+  width: 100%;
+  margin: 15px 0;
+  & label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: "Prompt";
+  }
+  & a {
+    color: ${COLORS.brightYellow};
   }
 `;
 
-const DatepPay = styled.p`
-  text-align: center;
-  font-weight: 400;
-  font-size: 11px;
-  text-transform: capitalize;
-  & img {
-    position: relative;
-    top: 2px;
-    margin-right: 2px;
-  }
-`;
-
-const Date = styled.h3`
+const Title = styled.h4`
   font-weight: 500;
-  text-transform: uppercase;
 `;
 
-const Status = styled.p<Paid>`
-  color: ${({ paid }) => (paid ? "#f1c93b" : "#a3a3a3")};
-  font-size: 13px;
+const Legend = styled(Box)`
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  & img {
+    margin-right: 5px;
+  }
 `;
 
 interface DayCard {
-  day: number;
-  label_day: string;
-  label_date: string;
   paid: boolean;
-  paid_date: any;
+  transfer_payment: boolean;
+  amount: number;
   week_index: any;
+  vacations: boolean;
   student: Student;
   cycleSelected: any;
-  amount: number;
 }
 
 const Index = ({
-  day,
-  label_day,
-  label_date,
   paid,
-  paid_date,
+  transfer_payment,
+  amount,
   week_index,
   student,
-  amount,
+  vacations,
   cycleSelected,
 }: DayCard) => {
   const router = useRouter();
   const query = router.query;
 
+  // Modal
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => !paid && setOpen(true);
   const handleClose = () => setOpen(false);
 
   // @ts-ignore
@@ -122,6 +111,15 @@ const Index = ({
 
   const [amount_value, setAmount] = useState<number | null>(null);
 
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
+  // @ts-ignore
+  const user = useUserStore((state) => state.user);
+
   const payHandle = () => {
     // @ts-ignore
     let studentsRef = students;
@@ -129,14 +127,14 @@ const Index = ({
     const school_cycle_selected = school_cycle.filter(
       (cycle: any) => cycle.first_year === cycleSelected.first_year
     );
-    school_cycle_selected[0].weeks[week_index].days[day - 1].paid = true;
-    school_cycle_selected[0].weeks[week_index].days[day - 1].amount =
-      amount_value;
-    school_cycle_selected[0].weeks[week_index].days[day - 1].paid_date =
+    school_cycle_selected[0].weeks[week_index].paid = true;
+    school_cycle_selected[0].weeks[week_index].amount = amount_value;
+    school_cycle_selected[0].weeks[week_index].transfer_payment = checked;
+    school_cycle_selected[0].weeks[week_index].collector_name = user.name;
+    school_cycle_selected[0].weeks[week_index].paid_date =
       // @ts-ignore
       new window.Date();
     setStudentsInfo([...studentsRef]);
-
     const info = {
       weeks: [
         // @ts-ignore
@@ -149,38 +147,77 @@ const Index = ({
 
     const cycle_id = `${cycleSelected.first_year}${cycleSelected.end_year}`;
 
+    const charger_id = generateUid(2, 3000000);
+    const charger = {
+      charger_id: charger_id,
+      created_at: new window.Date(),
+      student_name: student.student_name,
+      amount: amount_value,
+      cycle_id,
+      transfer_payment: checked,
+      week: week_index,
+    };
+
     updateStudentSchoolCycle(student?.uid, info, cycle_id)
       .then(() => {
-        toast.success("Cambios guardados");
-        handleClose();
+        addCharger(user.uid, charger, charger_id)
+          .then(() => {
+            toast.success("Cambios guardados");
+            handleClose();
+          })
+          .catch((error) => console.log(error));
       })
       .catch((error) => {
-        toast.error("Ocurrio un erro, intente más tarde");
+        toast.error("Ocurrio un erro, intente más tarde", error);
       });
   };
 
   return (
     <Box>
-      <Day>{label_day}</Day>
       <Card onClick={handleOpen} paid={paid}>
         <Box>
-          <Date>
-            {label_date.split(" ")[0]}{" "}
-            {label_date.split(" ")[1].substring(0, 3).toUpperCase()}
-          </Date>
-          <Status paid={paid}>{paid ? "Pagado" : "Pendiente"}</Status>
-          {paid && (
-            <DatepPay>
-              {/* <Image
-                width={12}
-                height={12}
-                priority
-                src={IconCheck}
-                alt="icon-check"
-              /> */}
-              {/* {renderDateFirebase(paid_date)} */}${amount}
-            </DatepPay>
-          )}
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Title>
+                Pago{" "}
+                {paid
+                  ? "completado"
+                  : vacations
+                  ? "de vacaciones pendiente"
+                  : "semanal pendiente"}
+              </Title>
+              {paid && (
+                <Legend>
+                  <Image
+                    width={13}
+                    height={13}
+                    priority
+                    src={transfer_payment ? IconTransfer : IconDollar}
+                    alt="icon-dollar"
+                  />
+                  <small>
+                    Pago realizado con{" "}
+                    {transfer_payment ? "transferencia" : "efectivo"}
+                  </small>
+                </Legend>
+              )}
+            </Box>
+            {!paid ? (
+              <Button
+                variant="outlined"
+                sx={{ fontFamily: "Prompt", boxShadow: "none" }}
+              >
+                Cobrar
+              </Button>
+            ) : (
+              <p>${amount}</p>
+            )}
+          </Stack>
         </Box>
       </Card>
       <Modal
@@ -214,8 +251,27 @@ const Index = ({
                 }}
               />
             </Box>
+            <Box mt={0}>
+              <Field>
+                <Stack
+                  direction="row"
+                  spacing={0}
+                  alignItems="center"
+                  justifyContent="flex-start"
+                >
+                  <Box>
+                    <Checkbox checked={checked} onChange={handleChange} />
+                  </Box>
+                  <Box>
+                    <label style={{ fontWeight: "400" }}>
+                      Pago realizado con trasnferencia
+                    </label>
+                  </Box>
+                </Stack>
+              </Field>
+            </Box>
           </ContentTitle>
-          <Box mt={2}>
+          <Box mt={0}>
             <Stack direction="row" spacing={2} justifyContent="center">
               <Button
                 sx={{ fontFamily: "Prompt", color: "#1d1d1d" }}

@@ -15,3 +15,11 @@ export const useUserStore = create((set) => ({
   //   Actions
   setUserInfo: (info: any) => set(() => ({ user: info })),
 }));
+
+// User Charges
+export const useChargesStore = create((set) => ({
+  // State
+  charges: [],
+  //   Actions
+  setCharges: (info: any) => set(() => ({ charges: info })),
+}));

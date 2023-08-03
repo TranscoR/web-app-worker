@@ -1,65 +1,14 @@
-import { Fragment } from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Image from "next/image";
 import IconArrow from "@/assets/icons/chevron.svg";
-import IconVacations from "@/assets/icons/vacations2.png";
+import IconVacations from "@/assets/icons/vacations.png";
 import PayWeekCard from "@/components/ui/card/PayWeekCard";
 import { type Student } from "@/types";
-
-const Section = styled(Box)`
-  margin-bottom: 20px;
-  & h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 5px;
-  }
-  & p {
-    font-size: 12.5px;
-  }
-  & ul {
-    padding-left: 5px;
-    /* margin: 0; */
-    list-style: none;
-    & li {
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
-    }
-  }
-`;
-
-const Date = styled(Typography)`
-  font-size: 12px !important;
-  color: grey;
-`;
-
-const ContentBadges = styled(Box)`
-  margin-bottom: 20px;
-`;
-
-const ContentIconMedicine = styled(Box)`
-  background-color: #97feed31;
-  padding: 9px;
-  border-radius: 6px;
-  & img {
-    display: block;
-  }
-`;
-
-const Badge = styled.p`
-  font-size: 12px !important;
-  padding: 5px 10px;
-  background: #fbd85d1c;
-  border-radius: 50px;
-  color: #1d1d1da6;
-  border: 1px solid #fbd85d;
-`;
 
 const HeaderInfo = styled(Box)`
   display: grid;
@@ -90,13 +39,6 @@ const HeaderInfo = styled(Box)`
       font-size: 13px;
     }
   }
-`;
-
-const Legend = styled.span`
-  display: block;
-  margin: 15px 0;
-  font-weight: 400;
-  font-size: 13.5px;
 `;
 
 const VacationsTitle = styled.h4`
@@ -167,7 +109,6 @@ const Index = ({
   start_week,
   end_week,
   vacations,
-  days,
   student,
   amount,
   paid,

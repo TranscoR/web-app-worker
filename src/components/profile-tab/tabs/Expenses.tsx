@@ -139,7 +139,7 @@ const Index = () => {
                 ))}
               </Fragment>
             ) : (
-              <p>No hay costos</p>
+              <p>No hay gastos</p>
             )}
           </Grid>
         </Content>

@@ -51,6 +51,7 @@ const StudentName = styled.h1`
 
 const Text = styled.p`
   font-size: 13px;
+  text-transform: capitalize;
 `;
 
 const ButtonFilters = styled.button`
@@ -204,6 +205,7 @@ const Index = () => {
                 <Text style={{ textTransform: "capitalize" }}>
                   Grado: {student?.grade} {student?.turn}
                 </Text>
+                <Text>Profesor: {student?.teacher_name}</Text>
               </StudentInfoCard>
             </Grid>
             <Grid item xs={12} md={4}>

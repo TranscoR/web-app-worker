@@ -1,31 +1,32 @@
-import { Main } from "@/templates/Main";
-import { Meta } from "@/layouts/Meta";
-import React, { Fragment, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import Header from "@/layouts/header";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import Switch from "@mui/material/Switch";
-import Table from "@/components/ui/table";
-import FiltersList from "@/components/ui/list/FiltersList";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Image from "next/image";
-import IconAddress from "@/assets/icons/map-pin.svg";
-import IconSchool from "@/assets/icons/home.svg";
-import IconTutor from "@/assets/icons/user.svg";
-import IconCalendar from "@/assets/icons/calendar.svg";
-import IconPrinter from "@/assets/icons/printer.svg";
-import WeekCard from "@/components/ui/card/WeekCard";
-import ButtonBack from "@/components/ButtonBack";
-import StudentInfoCard from "@/components/ui/card/StudenInfoCard";
-import { getSchoolCycleByStudent } from "@/api/students";
-import { useStudentsStore } from "@/store";
-import { updateStudentInfo } from "@/api/students";
-import { Toaster, toast } from "sonner";
-import { type Student } from "@/types";
+import { Main } from '@/templates/Main';
+import { Meta } from '@/layouts/Meta';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import Header from '@/layouts/header';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Switch from '@mui/material/Switch';
+import Table from '@/components/ui/table';
+import FiltersList from '@/components/ui/list/FiltersList';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Image from 'next/image';
+import IconAddress from '@/assets/icons/map-pin.svg';
+import IconSchool from '@/assets/icons/home.svg';
+import IconTutor from '@/assets/icons/user.svg';
+import IconCalendar from '@/assets/icons/calendar.svg';
+import IconPrinter from '@/assets/icons/printer.svg';
+import WeekCard from '@/components/ui/card/WeekCard';
+import ButtonBack from '@/components/ButtonBack';
+import StudentInfoCard from '@/components/ui/card/StudenInfoCard';
+import { getSchoolCycleByStudent } from '@/api/students';
+import { useStudentsStore } from '@/store';
+import { updateStudentInfo } from '@/api/students';
+import { Toaster, toast } from 'sonner';
+import { type Student } from '@/types';
+import * as Icon from 'react-feather';
 
 const Content = styled(Box)`
   margin: 60px auto;
@@ -47,6 +48,7 @@ const StudentName = styled.h1`
   margin-top: 0px;
   font-weight: 500;
   font-size: 32px;
+  text-transform: capitalize;
 `;
 
 const Text = styled.p`
@@ -89,7 +91,7 @@ const Index = () => {
   const query = router.query;
   const student_id = router.query.student_id;
 
-  const thead = ["Num Semana", "Semana", "Pago", ""];
+  const thead = ['Num Semana', 'Semana', 'Pago', ''];
 
   // @ts-ignore
   const students = useStudentsStore((state) => state.students);
@@ -127,10 +129,10 @@ const Index = () => {
     };
     updateStudentInfo(student?.uid, info)
       .then(() => {
-        toast.success("Cambios guardados");
+        toast.success('Cambios guardados');
       })
       .catch((error) => {
-        toast.error("Ocurrio un erro, intente más tarde");
+        toast.error('Ocurrio un erro, intente más tarde');
       });
   };
 
@@ -153,9 +155,8 @@ const Index = () => {
     );
 
   const goToPrintView = () => {
-    window.open(
-      `/print-school-cycle/${student.uid}?fy=${cycleSelected.first_year}&ey=${cycleSelected.end_year}`,
-      "_blank"
+    router.push(
+      `/print-school-cycle/${student.uid}?fy=${cycleSelected.first_year}&ey=${cycleSelected.end_year}`
     );
   };
 
@@ -181,17 +182,13 @@ const Index = () => {
                 <Switch
                   checked={student?.active_account}
                   onChange={disableAccountHandle}
-                  inputProps={{ "aria-label": "controlled" }}
+                  inputProps={{ 'aria-label': 'controlled' }}
                 />
               }
               label={
-                student?.active_account ? "Cuenta activada" : "Activar cuenta"
+                student?.active_account ? 'Cuenta activada' : 'Activar cuenta'
               }
             />
-            {/* <ProfileOptions
-              active_account={student?.active_account}
-              disableAccountHandle={disableAccountHandle}
-            /> */}
           </Stack>
           <Box mt={3} mb={1}>
             <p>Información</p>
@@ -202,8 +199,8 @@ const Index = () => {
                 <Text>
                   {student?.education} {student?.school_name}
                 </Text>
-                <Text style={{ textTransform: "capitalize" }}>
-                  Grado: {student?.grade} {student?.turn}
+                <Text style={{ textTransform: 'capitalize' }}>
+                  Grado: {student?.grade} - {student?.turn}
                 </Text>
                 <Text>Profesor: {student?.teacher_name}</Text>
               </StudentInfoCard>
@@ -212,9 +209,9 @@ const Index = () => {
               <StudentInfoCard title="Dirección" icon={IconAddress}>
                 <Text>{student?.address}</Text>
                 <Text>
-                  Casa color {student?.house_color} con zaguán color{" "}
-                  {student?.door_color}, entre calle{" "}
-                  {student?.first_street_reference} y{" "}
+                  Casa color {student?.house_color} con zaguán color{' '}
+                  {student?.door_color}, entre calle{' '}
+                  {student?.first_street_reference} y{' '}
                   {student?.second_street_reference}
                 </Text>
               </StudentInfoCard>
@@ -223,17 +220,25 @@ const Index = () => {
               <StudentInfoCard title="Tutor" icon={IconTutor}>
                 <Text>{student?.tutor_name}</Text>
                 <Text>
-                  Casa: {student?.house_phone_number} &nbsp;&nbsp; Celular:{" "}
-                  {student?.phone_number}
+                  Casa:{' '}
+                  {student?.house_phone_number
+                    ? student?.house_phone_number
+                    : '######'}{' '}
+                  &nbsp; Celular: {student?.phone_number}
                 </Text>
                 <Text>Otro Familiar: {student?.subtutor_name}</Text>
-                <Text>Celular: {student?.subtutor_phone_number}</Text>
+                <Text>
+                  Celular:{' '}
+                  {student?.subtutor_phone_number
+                    ? student?.subtutor_phone_number
+                    : '######'}
+                </Text>
               </StudentInfoCard>
             </Grid>
           </Grid>
           <Box>
             <Stack
-              direction={{ xs: "column", sm: "row" }}
+              direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
               justifyContent="space-between"
               alignItems="center"
@@ -243,7 +248,7 @@ const Index = () => {
                 <Fragment>
                   <Box>
                     <SchoolCycle>
-                      Ciclo escolar: {cycleSelected.first_year} -{" "}
+                      Ciclo escolar: {cycleSelected.first_year} -{' '}
                       {cycleSelected.end_year}
                     </SchoolCycle>
                     <ButtonPrinter onClick={goToPrintView}>
@@ -281,17 +286,17 @@ const Index = () => {
                       <Button
                         variant="contained"
                         sx={{
-                          fontFamily: "Prompt",
-                          boxShadow: "none",
-                          padding: "8px 10px",
+                          fontFamily: 'Prompt',
+                          boxShadow: 'none',
+                          padding: '8px 10px',
                           color:
                             cycleSelected.first_year === cycle.first_year
-                              ? "#f1ca3b"
-                              : "#1d1d1d",
+                              ? '#f1ca3b'
+                              : '#1d1d1d',
                           backgroundColor:
                             cycleSelected.first_year === cycle.first_year
-                              ? "#f1ca3b20"
-                              : "#e9edf3",
+                              ? '#f1ca3b20'
+                              : '#e9edf3',
                         }}
                         onClick={() =>
                           setCycleSelected({

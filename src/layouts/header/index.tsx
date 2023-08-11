@@ -1,12 +1,13 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import styled from "styled-components";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { useStudentsStore, useUserStore } from "@/store";
-import { getStudentList } from "@/api/students";
-import { getUserInfo } from "@/api/user";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { useStudentsStore, useUserStore } from '@/store';
+import { getStudentList } from '@/api/students';
+import { getUserInfo } from '@/api/user';
+import * as Icon from 'react-feather';
 
 const Header = styled.header`
   display: flex;
@@ -75,11 +76,14 @@ const Index = () => {
           <Button
             variant="outlined"
             sx={{
-              fontFamily: "Prompt",
-              boxShadow: "none",
-              padding: "6px 30px",
+              fontFamily: 'Prompt',
+              boxShadow: 'none',
+              padding: '3px 30px',
             }}
           >
+            <span style={{ marginRight: '5px', marginTop: '6px' }}>
+              <Icon.User size={16} />
+            </span>
             Mi cuenta
           </Button>
         </Link>

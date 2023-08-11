@@ -1,17 +1,20 @@
 /** @type {import('next').NextConfig} */
 /* eslint-disable import/no-extraneous-dependencies */
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
 });
 
 module.exports = withBundleAnalyzer({
   eslint: {
-    dirs: ["."],
+    dirs: ['.'],
   },
   poweredByHeader: false,
   trailingSlash: true,
   reactStrictMode: true,
   compiler: {
     styledComponents: true,
+  },
+  images: {
+    unoptimized: true,
   },
 });

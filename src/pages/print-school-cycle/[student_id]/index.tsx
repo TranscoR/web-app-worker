@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Grid";
-import { getStudentInfo, getSchoolCycleByStudent } from "@/api/students";
-import { type Student } from "@/types";
-import { COLORS } from "@/constants/colors";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+import { getStudentInfo, getSchoolCycleByStudent } from '@/api/students';
+import { type Student } from '@/types';
+import { COLORS } from '@/constants/colors';
 
 const Wrapper = styled(Box)`
   padding: 0px;
@@ -49,7 +49,7 @@ const HeaderInfo = styled(Box)`
   width: 100%;
   padding: 4px 0;
   & div p {
-    font-family: "Prompt";
+    font-family: 'Prompt';
     font-size: 8.8px;
     & small {
       color: grey;
@@ -59,6 +59,7 @@ const HeaderInfo = styled(Box)`
 
 const Index = () => {
   const router = useRouter();
+  const asPath = useRouter();
   const query = router.query;
   const student_id: any = router.query.student_id;
 
@@ -76,14 +77,15 @@ const Index = () => {
                 ...res,
                 school_cycle: response,
               });
+              setTimeout(() => {
+                asPath?.asPath.includes('print-school-cycle') && window.print();
+              }, 1000);
             })
             .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
     }
   }, [student_id]);
-
-  console.log("studentInfo", studentInfo);
 
   return (
     <Wrapper>
@@ -131,7 +133,7 @@ const Index = () => {
                         </p>
                       </div>
                       <div>
-                        <p>{item.paid ? "Pagado" : "Pendiente"}</p>
+                        <p>{item.paid ? 'Pagado' : 'Pendiente'}</p>
                       </div>
                     </HeaderInfo>
                   </WeekCard>
@@ -158,7 +160,7 @@ const Index = () => {
                         </p>
                       </div>
                       <div>
-                        <p>{item.paid ? "Pagado" : "Pendiente"}</p>
+                        <p>{item.paid ? 'Pagado' : 'Pendiente'}</p>
                       </div>
                     </HeaderInfo>
                   </WeekCard>
@@ -185,7 +187,7 @@ const Index = () => {
                         </p>
                       </div>
                       <div>
-                        <p>{item.paid ? "Pagado" : "Pendiente"}</p>
+                        <p>{item.paid ? 'Pagado' : 'Pendiente'}</p>
                       </div>
                     </HeaderInfo>
                   </WeekCard>

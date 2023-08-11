@@ -1,18 +1,19 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import LoadingButton from "@mui/lab/LoadingButton";
-import Button from "@mui/material/Button";
-import Animation from "@/components/animation/Animation";
-import Table from "@/components/ui/table";
-import Modal from "@mui/material/Modal";
-import { ModalContent, ContentTitle, ModalTitle } from "@/styles";
-import ChargeCard from "@/components/ui/card/ChargeCard";
-import { type Charge } from "@/types";
-import { useUserStore, useChargesStore } from "@/store";
-import { getRangeChargers } from "@/api/user";
-import { DateRange } from "@/components/DateRange";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
+import Animation from '@/components/animation/Animation';
+import Table from '@/components/ui/table';
+import Modal from '@mui/material/Modal';
+import { ModalContent, ContentTitle, ModalTitle } from '@/styles';
+import ChargeCard from '@/components/ui/card/ChargeCard';
+import { type Charge } from '@/types';
+import { useUserStore, useChargesStore } from '@/store';
+import { getRangeChargers } from '@/api/user';
+import { DateRange } from '@/components/DateRange';
+import * as Icon from 'react-feather';
 
 const Subtitle = styled.h2`
   font-weight: 500;
@@ -21,6 +22,11 @@ const Subtitle = styled.h2`
 const ModalDescription = styled.p`
   text-align: center;
   font-size: 14px;
+`;
+
+const ContentIcon = styled.span`
+  vertical-align: sub;
+  margin-right: 5px;
 `;
 
 const Index = () => {
@@ -33,7 +39,7 @@ const Index = () => {
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
-    key: "selection",
+    key: 'selection',
   });
 
   // @ts-ignore
@@ -69,25 +75,25 @@ const Index = () => {
   };
 
   const thead = [
-    "Alumno",
-    "Fecha",
-    "Cantidad",
-    "Tipo",
-    "Ciclo escolar",
-    "Semana",
+    'Alumno',
+    'Fecha',
+    'Cantidad',
+    'Tipo',
+    'Ciclo escolar',
+    'Semana',
   ];
 
   const options: any = {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
   };
 
   return (
     <Box>
       <Box>
         <Stack
-          direction={{ xs: "column", sm: "row" }}
+          direction={{ xs: 'column', sm: 'row' }}
           spacing={2}
           alignItems="center"
           justifyContent="space-between"
@@ -96,11 +102,16 @@ const Index = () => {
             <Subtitle>Cobros</Subtitle>
             <Box>
               <p>
+                <ContentIcon>
+                  <Icon.Calendar size={15} />
+                </ContentIcon>
                 {selectionRange.startDate.toLocaleDateString(
                   undefined,
                   options
-                )}{" "}
-                -{" "}
+                )}{' '}
+                <ContentIcon>
+                  <Icon.ArrowRight size={12} />
+                </ContentIcon>{' '}
                 {selectionRange.endDate.toLocaleDateString(undefined, options)}
               </p>
             </Box>
@@ -108,13 +119,16 @@ const Index = () => {
               onClick={handleOpen}
               variant="text"
               sx={{
-                marginTop: "10px",
-                fontFamily: "Prompt",
-                boxShadow: "none",
-                marginRight: "10px",
-                padding: "6px 10px",
+                marginTop: '10px',
+                fontFamily: 'Prompt',
+                boxShadow: 'none',
+                marginRight: '10px',
+                padding: '6px 10px',
               }}
             >
+              <span style={{ marginRight: '5px', marginTop: '5px' }}>
+                <Icon.Filter size={15} />
+              </span>
               Filtar por fecha
             </Button>
           </Box>
@@ -156,7 +170,7 @@ const Index = () => {
           </Box>
           <Box textAlign="center">
             <LoadingButton
-              sx={{ margin: "20px 0 0", color: "#fff", boxShadow: "none" }}
+              sx={{ margin: '20px 0 0', color: '#fff', boxShadow: 'none' }}
               size="medium"
               color="primary"
               loading={loading}

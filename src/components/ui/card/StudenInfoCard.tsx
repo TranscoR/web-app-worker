@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Animation from "@/components/animation/Animation";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Image from "next/image";
-import IconArrow from "@/assets/icons/chevron.svg";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Animation from '@/components/animation/Animation';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import Image from 'next/image';
+import IconArrow from '@/assets/icons/chevron.svg';
 
 const Card = styled(Box)`
   background-color: #fff;
@@ -69,7 +69,7 @@ const Index = ({ title, icon, children }: StudentInfoCard) => {
         </Stack>
         {show && (
           <Animation>
-            <Box mt={1}>{children}</Box>{" "}
+            <Box mt={1}>{children}</Box>{' '}
           </Animation>
         )}
       </Card>

@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Image from "next/image";
-import IconLock from "@/assets/icons/lock.svg";
-import { type Student } from "@/types";
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Image from 'next/image';
+import IconLock from '@/assets/icons/lock.svg';
+import { type Student } from '@/types';
 
 const Card = styled(Box)`
   border: 1px solid #d1d1d185 !important;
@@ -28,7 +28,7 @@ const HeaderInfo = styled(Box)`
   width: 100%;
   padding: 10px 0;
   & div p {
-    font-family: "Prompt";
+    font-family: 'Prompt';
     font-size: 13.5px;
     line-height: 120%;
     color: #000;
@@ -65,18 +65,18 @@ const Index = ({
   const router = useRouter();
 
   return (
-    <Box sx={{ border: "1ps solid #d1d1d185" }}>
+    <Box sx={{ border: '1ps solid #d1d1d185' }}>
       <Card onClick={() => router.push(`/student/${uid}/?index=${index}`)}>
         <HeaderInfo>
           <div>
-            <p>
-              #{list_number}{" "}
+            <p style={{ textTransform: 'capitalize' }}>
+              #{list_number}{' '}
               {!active_account && (
                 <Image
                   style={{
-                    position: "relative",
-                    top: "2.2px",
-                    marginRight: "5px",
+                    position: 'relative',
+                    top: '2.2px',
+                    marginRight: '5px',
                   }}
                   width={15}
                   height={15}
@@ -101,7 +101,7 @@ const Index = ({
           <div>
             <Button
               onClick={() => router.push(`/student/${uid}/?index=${index}`)}
-              sx={{ fontFamily: "Prompt", boxShadow: "none" }}
+              sx={{ fontFamily: 'Prompt', boxShadow: 'none' }}
             >
               Detalles
             </Button>

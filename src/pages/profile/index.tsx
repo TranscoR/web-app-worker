@@ -1,17 +1,17 @@
-import { Main } from "@/templates/Main";
-import { Meta } from "@/layouts/Meta";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import Header from "@/layouts/header";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import ButtonBack from "@/components/ButtonBack";
-import Image from "next/image";
-import IconEmail from "@/assets/icons/mail.svg";
-import IconLogout from "@/assets/icons/logout.svg";
-import ProfileTab from "@/components/profile-tab";
-import { useStudentsStore, useUserStore } from "@/store";
+import { Main } from '@/templates/Main';
+import { Meta } from '@/layouts/Meta';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import Header from '@/layouts/header';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import ButtonBack from '@/components/ButtonBack';
+import Image from 'next/image';
+import IconEmail from '@/assets/icons/mail.svg';
+import IconLogout from '@/assets/icons/logout.svg';
+import ProfileTab from '@/components/profile-tab';
+import { useStudentsStore, useUserStore } from '@/store';
 
 const Content = styled(Box)`
   margin: 60px auto;
@@ -50,8 +50,8 @@ const Index = () => {
   const logOut = () => {
     setStudentsInfo([]);
     setUserInfo({});
-    localStorage.removeItem("user_uid");
-    router.push("/login");
+    localStorage.removeItem('user_uid');
+    router.push('/login');
   };
 
   return (
@@ -67,7 +67,7 @@ const Index = () => {
         <Header />
         <Content>
           <Stack
-            direction={{ xs: "column", sm: "row" }}
+            direction={{ xs: 'column', sm: 'row' }}
             spacing={1}
             mt={1}
             justifyContent="space-between"
@@ -90,12 +90,12 @@ const Index = () => {
               <Button
                 variant="text"
                 sx={{
-                  fontFamily: "Prompt",
-                  boxShadow: "none",
-                  marginRight: "10px",
-                  padding: "6px 30px",
-                  color: "#1d1d1d",
-                  background: "#f2f2f2",
+                  fontFamily: 'Prompt',
+                  boxShadow: 'none',
+                  marginRight: '10px',
+                  padding: '6px 30px',
+                  color: '#1d1d1d',
+                  background: '#e9edf3',
                 }}
                 onClick={logOut}
               >
@@ -105,7 +105,7 @@ const Index = () => {
                   priority
                   src={IconLogout}
                   alt="icon-logout"
-                  style={{ marginRight: "5px" }}
+                  style={{ marginRight: '5px' }}
                 />
                 Cerrar sesión
               </Button>

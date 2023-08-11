@@ -1,17 +1,17 @@
-import { useState } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import CustomTabPanel from "./CustomTabPanel";
-import SchoolCycle from "./tabs/SchoolCycle";
-import Expenses from "./tabs/Expenses";
-import Chargers from "./tabs/Charges";
+import { useState } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import CustomTabPanel from './CustomTabPanel';
+import SchoolCycle from './tabs/SchoolCycle';
+import Expenses from './tabs/Expenses';
+import Chargers from './tabs/Charges';
 
 const Index = () => {
   const a11yProps = (index: number) => {
     return {
       id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
     };
   };
 
@@ -22,8 +22,8 @@ const Index = () => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
           onChange={handleChange}

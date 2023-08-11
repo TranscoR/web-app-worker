@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 // Forms
 export const Field = styled(Box)`
@@ -11,7 +11,7 @@ export const Field = styled(Box)`
     margin-bottom: 5px;
     font-size: 13px;
     font-weight: 500;
-    font-family: "Prompt";
+    font-family: 'Prompt';
   }
 `;
 
@@ -34,6 +34,9 @@ export const ModalContent = styled(Box)`
 
 export const ContentTitle = styled(Box)`
   padding: 0 35px 16px;
+  @media screen and (max-width: 768px) {
+    padding: 0 5px 10px;
+  }
 `;
 
 export const ModalTitle = styled(Typography)`
@@ -42,5 +45,5 @@ export const ModalTitle = styled(Typography)`
   font-weight: 500;
   text-align: center;
   line-height: 25px;
-  font-family: "Prompt" !important;
+  font-family: 'Prompt' !important;
 `;

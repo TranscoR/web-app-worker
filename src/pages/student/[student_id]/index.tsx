@@ -172,7 +172,13 @@ const Index = () => {
       <Box mt={14}>
         <Header />
         <Content>
-          <Stack direction="row" spacing={2} justifyContent="space-between">
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="space-between"
+            useFlexGap
+            flexWrap="wrap"
+          >
             <Box>
               <ButtonBack />
               <StudentName>{student?.student_name}</StudentName>
@@ -238,9 +244,11 @@ const Index = () => {
           </Grid>
           <Box>
             <Stack
-              direction={{ xs: 'column', sm: 'row' }}
+              direction={{ xs: 'row', sm: 'row' }}
               spacing={2}
               justifyContent="space-between"
+              useFlexGap
+              flexWrap="wrap"
               alignItems="center"
               mt={5}
             >
@@ -259,7 +267,7 @@ const Index = () => {
                         src={IconPrinter}
                         alt="icon-printer"
                       />
-                      Imprimir ciclo escolar
+                      Imprimir Ciclo Escolar
                     </ButtonPrinter>
                   </Box>
                   <Box>
@@ -271,7 +279,7 @@ const Index = () => {
                         src={IconCalendar}
                         alt="icon-calendar"
                       />
-                      Ciclo escolar
+                      Escoger Ciclo Escolar
                     </ButtonFilters>
                   </Box>
                 </Fragment>

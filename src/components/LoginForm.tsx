@@ -18,6 +18,7 @@ const Title = styled.h1`
 const Logo = styled.h3`
   color: #c6c6c6;
   font-weight: 500;
+  font-size: 15px;
 `;
 
 const Index = () => {
@@ -46,7 +47,7 @@ const Index = () => {
 
   return (
     <Box>
-      <Logo>TranscoR</Logo>
+      <Logo>TranscoR | Trabajador</Logo>
       <Title>Iniciar sesión</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Field sx={{ margin: '0px !important' }}>
@@ -69,6 +70,7 @@ const Index = () => {
             keyName="password"
             placeholder="Escribe una contraseña"
             required={true}
+            endAdornment={true}
           />
         </Field>
         <LoadingButton

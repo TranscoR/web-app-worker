@@ -102,6 +102,7 @@ interface WeekCard {
   ];
   student: Student;
   cycleSelected: any;
+  collector_name: string;
 }
 
 const Index = ({
@@ -114,6 +115,7 @@ const Index = ({
   paid,
   transfer_payment,
   cycleSelected,
+  collector_name,
 }: WeekCard) => {
   const number_week = i + 1;
 
@@ -196,6 +198,7 @@ const Index = ({
                 vacations={vacations}
                 week_index={i}
                 cycleSelected={cycleSelected}
+                collector_name={collector_name}
               />
             </CotentDays>
             {/* <small>
